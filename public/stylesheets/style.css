@@ -1,8 +1,28 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+
+
+
+a:hover{
+    text-decoration: none;
 }
 
-a {
-  color: #00B7FF;
+
+.home-left-block {
+    height: 40px;
+    width: 100%;
+    padding-left: 20px;
+    background-color: #F8F6F5;
+    text-align: left;
+    line-height: 40px;
+}
+
+.home-left-block:hover {
+    text-decoration: none;
+    background-color: #5792ED;
+    color: #FFF;
+}
+
+.home-block-visited {
+    text-decoration: none;
+    background-color: #5792ED;
+    color: #FFF;
 }

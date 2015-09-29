@@ -4,7 +4,7 @@ var userDAO = require('../../bin/connect');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render('log/login', {title: 'Express'});
+    res.render('login/login', {title: 'Express'});
 });
 
 router.post('/',function(req, res ,next){
@@ -18,11 +18,11 @@ router.post('/',function(req, res ,next){
                 res.redirect('home');
             } else {
                 message = '用户名密码错误';
-                res.render('log/login',{message: message,title: 'Express'});
+                res.render('login/login',{message: message,title: 'Express'});
             }
         }else{
             message = '用户名密码错误';
-            res.render('log/login',{message: message,title: 'Express'});
+            res.render('login/login',{message: message,title: 'Express'});
         }
     });
 });

@@ -1,11 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title> <%= title %></title>
-</head>
-<body>
-<p><%= userID %>,welcome to the home</p>
-<a href="/logout">logout1</a>
+<% include Header.ejs %>
+<body ng-app="home">
+<script src="/javascripts/homeCtrl.js"></script>
+    <header class="navbar">
+        <div class="container">
+            <div class="col-xs-8 text-info">
+                <h2>SDE管理系统</h2>
+            </div>
+            <div class="col-xs-4" style="margin-top: 20px">
+                <h4 class="text-warning"><%= userID %>,welcome to the home!
+                    <a href="/logout" style="margin-left:15px">登出</a>
+                </h4>
+            </div>
+        </div>
+    </header>
+    <hr class="alert-info" style="height: 5px">
+    <!-- 左侧div -->
+    <div class="col-xs-4" style="margin: 10px 5% 15px;width: 20%">
+        <table style="width: 100%" class="table-bordered">
+            <tr>
+                <td>
+                    <a href="#" style="text-underline: none">
+                        <div class="home-left-block" ui-sref=".page1">
+                            我发表的论文
+                        </div>
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="#">
+                        <div class="home-left-block" ui-sref=".page2">
+                            查询所有的论文
+                        </div>
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="#">
+                        <div class="home-left-block" ui-sref=".page3">
+                            我的信息
+                        </div>
+                    </a>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+
+    <!-- 右侧div -->
+    <div class="col-xs-7" ui-view=""></div>
+
 </body>
 </html>

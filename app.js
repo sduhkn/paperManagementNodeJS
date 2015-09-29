@@ -7,9 +7,10 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 
 
-var login = require('./routes/log/login');
+var login = require('./routes/login/login');
 var home = require('./routes/home');
-var logout = require('./routes/log/logout');
+var logout = require('./routes/login/logout');
+var angular = require('./routes/testAngular');
 var app = express();
 
 // view engine setup
@@ -41,6 +42,7 @@ app.get('/',function(req, res){
 app.use('/login', login);
 app.use('/home',home);
 app.use('/logout',logout);
+app.use('/angular',angular);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

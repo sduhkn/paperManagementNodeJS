@@ -1,0 +1,38 @@
+<% include ../Header.ejs %>
+<body>
+<legend><h2>用户登陆</h2></legend>
+<% if(typeof(message) != "undefined" && message!=null) { %>
+<div class="alert alert-danger">
+    <%= message %>
+</div>
+<% } %>
+<p>Welcome to <%= title %></p>
+<div class="container-fluid">
+    <form action="/login" method="post" class="form-horizontal">
+        <fieldset>
+            <div class="well" >
+                <div class="form-group">
+                    <label class="col-xs-4 control-label" for="username">用户名：</label>
+                    <div class="col-xs-3">
+                        <input placeholder="输入用户名" class="form-control" type="text" id="username" name="username">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-4 control-label" for="password">密码：</label>
+                    <div class="col-xs-3">
+                        <input placeholder="输入密码" class="form-control" type="password" id="password" name="password">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-4 col-sm-4">
+                        <input class="btn btn-primary" type="submit" value="登录">
+                    </div>
+
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+<% include loginFooter.ejs %>
+
+
