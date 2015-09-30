@@ -6,8 +6,11 @@
 
 </head>
 <body>
-<% if(message){ %>
-<p><%= message %></p>
+<% if(messages){ %>
+<% messages.forEach(function(message){ %>
+<p><%= message.username %></p>
+<% }) %>
+
 <% } %>
 <input type="button" name="Submit" onclick="javascript:history.back(-1);" value="返回上一页">
 </body>
