@@ -1,7 +1,10 @@
 <div>
-     <div>
+     <div ng-controller="getUser">
          <h1>Page 1 content goes here...</h1>
-         <input type="text" ng-model="test">
-         {{ test }}
+         <div>
+             <input type="text" name="user" ng-model="test1">
+             <p ng-bind="test1"></p>
+         </div>
      </div>
 </div>
+

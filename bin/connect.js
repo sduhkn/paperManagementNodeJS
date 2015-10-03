@@ -34,24 +34,7 @@ module.exports = {
                 if(result)
                     callback(err, result);
             });
+
         });
     }
 };
-exports.getData = function (tableName){
-    conn.query("select * from "+tableName,function(err,results,fields){
-        if(err) throw err;
-        results.forEach(function(data){
-            console.log(data.username+" "+ data.password);
-        });
-    });
-    conn.end();
-}
-
-exports.insertData = function (TableName,username,pwd){
-    conn.query("insert into "+TableName+" "+
-    "set username=?,password=?",[username,pwd]);
-    console.log("data has updated");
-}
-exports.endMySQL = function(){
-    conn.end();
-}

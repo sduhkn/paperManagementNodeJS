@@ -11,6 +11,7 @@ var login = require('./routes/login/login');
 var home = require('./routes/home');
 var logout = require('./routes/login/logout');
 var testQuery = require('./routes/login/testQuery');
+var userDAO = require('./bin/connect');
 var app = express();
 
 // view engine setup
@@ -31,7 +32,7 @@ app.use(session({
     maxAge: 10*1000,
     cookie: { secure: false }
 }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname,'')));
 
 
 app.get('/',function(req, res){
@@ -43,6 +44,14 @@ app.use('/login', login);
 app.use('/home',home);
 app.use('/logout',logout);
 app.use('/result',testQuery);
+
+app.get('/user',function(req, res){
+    userDAO.queryAll("select * from user",function(err, result){
+        res.send({title1:'express1'});
+    });
+    res.send({title2:'express2'});
+});
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
