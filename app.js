@@ -29,7 +29,7 @@ app.use(session({
     resave: false,
     name: 'user_ID',
     saveUninitialized: true,
-    maxAge: 10*1000,
+    maxAge: 10*60*1000,
     cookie: { secure: false }
 }));
 app.use(express.static(path.join(__dirname,'')));
@@ -47,9 +47,9 @@ app.use('/result',testQuery);
 
 app.get('/user',function(req, res){
     userDAO.queryAll("select * from user",function(err, result){
-        res.send({title1:'express1'});
+        console.log(req.query.userID);
+        res.send({userData: result });
     });
-    res.send({title2:'express2'});
 });
 
 

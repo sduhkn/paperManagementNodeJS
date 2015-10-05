@@ -1,3 +1,7 @@
+body{
+    font-family: "Helvetica Neue", Helvetica, Microsoft Yahei, Hiragino Sans GB, WenQuanYi Micro Hei, sans-serif;
+}
+
 a:hover{
     text-decoration: none;
 }
@@ -11,14 +15,26 @@ a:hover{
     line-height: 40px;
 }
 
-.home-left-block:hover {
+.home-left-block:visited {
     text-decoration: none;
     background-color: #5792ED;
     color: #FFF;
 }
 
-.home-block-visited {
+.home-block-visiting {
     text-decoration: none;
     background-color: #5792ED;
     color: #FFF;
+}
+
+#paperHeaderStyle {
+    line-height: 1.8;
+    text-align: center;
+    font-weight: 500;
+    color: #1B809E;
+}
+#paperStyle {
+    padding-top: 10px;
+    text-align: center;
+    font-weight: 400;
 }

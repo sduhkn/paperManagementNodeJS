@@ -1,9 +1,74 @@
+<!-- 我发表的论文右侧 -->
 <div>
-     <div ng-controller="getUser">
-         <h1>Page 1 content goes here...</h1>
-         <div>
-             <input type="text" name="user" ng-model="test1">
-             <p ng-bind="test1"></p>
+     <div ng-controller="">
+         <div class="container">
+
+
+             <!-- 搜索栏 -->
+             <div class="row">
+                 <div class="col-xs-offset-1 col-xs-3">
+                     <nav>
+                         <ul class="pagination">
+                             <li>
+                                 <a href="#" aria-label="Previous">
+                                     <span aria-hidden="true">&laquo;</span>
+                                 </a>
+                             </li>
+                             <li><a href="#">1</a></li>
+                             <li><a href="#">2</a></li>
+                             <li><a href="#">3</a></li>
+                             <li><a href="#">4</a></li>
+                             <li><a href="#">5</a></li>
+                             <li>
+                                 <a href="#" aria-label="Next">
+                                     <span aria-hidden="true">&raquo;</span>
+                                 </a>
+                             </li>
+                         </ul>
+                     </nav>
+                 </div>
+                 <div class="input-group col-xs-offset-8 col-xs-3" style="padding-top: 16px">
+                     <input type="text" class="form-control" placeholder="Search for...">
+                      <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">Go!</button>
+                      </span>
+                 </div><!-- /input-group -->
+             </div>
+             <!-- 显示信息栏 -->
+            <div class="row" id="paperHeaderStyle">
+                <div class="col-xs-1 col-xs-offset-1">
+                    论文ID
+                </div>
+                <div class="col-xs-4">
+                    论文名称
+                </div>
+                <div class="col-xs-1">
+                    发表日期
+                </div>
+            </div>
+             <div class="row" id="paperStyle">
+                 <div class="col-xs-1">
+                     <p>index</p>
+                 </div>
+                <div class="col-xs-1">
+                    <p>20112121</p>
+                </div>
+                <div class="col-xs-4">
+                    这个是测试的论文名称1234123213213213123123
+                </div>
+                <div class="col-xs-1">
+                    2011/11/3
+                </div>
+                 <div class="col-xs-1">
+                    <button type="button" class="btn-info btn">查看</button>
+                </div>
+                 <div class="col-xs-1">
+                     <button type="button" class="btn-primary btn">编辑</button>
+                </div>
+                 <div class="col-xs-1">
+                     <button type="button" class="btn-danger btn">删除</button>
+                </div>
+            </div>
          </div>
      </div>
 </div>

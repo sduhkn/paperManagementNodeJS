@@ -1,6 +1,6 @@
 <% include Header.ejs %>
 <body ng-app="home">
-<script src="./public/javascripts/homeCtrl.js"></script>
+<script src="./public/javascripts/controller/homeCtrl.js"></script>
     <header class="navbar">
         <div class="container">
             <div class="col-xs-8 text-info">
@@ -14,42 +14,24 @@
         </div>
     </header>
     <hr class="alert-info" style="height: 5px">
+    <div class="col-xs-1"></div>
     <!-- 左侧div -->
-    <div class="col-xs-4" style="margin: 10px 5% 15px;width: 20%">
-        <table style="width: 100%" class="table-bordered">
-            <tr>
-                <td>
-                    <a href="#" style="text-underline: none">
-                        <div class="home-left-block" ui-sref=".page1">
-                            我发表的论文
-                        </div>
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a href="#">
-                        <div class="home-left-block" ui-sref=".page2">
-                            查询所有的论文
-                        </div>
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a href="#">
-                        <div class="home-left-block" ui-sref=".page3">
-                            我的信息
-                        </div>
-                    </a>
-                </td>
-            </tr>
-
-        </table>
+    <div class="col-xs-4" style="width: 13%">
+        <ul class="nav nav-pills nav-stacked">
+            <li role="presentation" class="active">
+                <a ui-sref="page1">我发表的论文</a>
+            </li>
+            <li role="presentation">
+                <a ui-sref="page2">查看所有论文</a>
+            </li>
+            <li role="presentation">
+                <a ui-sref="page3">我的信息</a>
+            </li>
+        </ul>
     </div>
 
     <!-- 右侧div -->
-    <div class="col-xs-7" ui-view=""></div>
-
+    <div class="col-xs-6" ui-view=""></div>
+<script src="./public/javascripts/bootstrap-js/bootstrap.js"></script>
 </body>
 </html>

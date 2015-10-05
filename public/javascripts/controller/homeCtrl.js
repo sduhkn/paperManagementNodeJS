@@ -20,7 +20,11 @@ home.config(function ($stateProvider, $urlRouterProvider) {
             templateUrl: "./public/angular/Page3.ejs"
         });
 });
-home.controller('getUser',function($scope){
-    $scope.test='111';
-    alert('test123');
+home.controller('',function($scope,$http){
+    $http.get('/user',{ params:{userID: '123'} })
+        .success(function(data, status){
+            $scope.users = data.userData;
+        }).error(function(data, status){
+            alert("error: "+status);
+        });
 });

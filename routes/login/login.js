@@ -12,9 +12,8 @@ router.post('/',function(req, res ,next){
     userDAO.checkLogin(req,res,function(err, result){
         if(result.length != 0) {
             if (result[0].password == req.body.password) {
-                res.cookie('userID',result[0].username,{ maxAge: 100*1000 });
+                res.cookie('userID',result[0].username,{ maxAge: 10*60*1000 });
                 req.session.user = result;
-                console.log(req.session.user);
                 res.redirect('home');
             } else {
                 message = '用户名密码错误';
