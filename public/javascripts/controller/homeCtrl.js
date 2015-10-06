@@ -9,15 +9,15 @@ home.config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
         .state("page1", {
             url:"/page1",
-            templateUrl: "./public/angular/Page1.ejs"
+            templateUrl: "./views/stu/Page1.ejs"
         })
         .state("page2", {
             url:"/page2",
-            templateUrl: "./public/angular/Page2.ejs"
+            templateUrl: "./views/stu/Page2.ejs"
         })
         .state("page3", {
             url:"/page3",
-            templateUrl: "./public/angular/Page3.ejs"
+            templateUrl: "./views/stu/Page3.ejs"
         });
 });
 home.controller('',function($scope,$http){
