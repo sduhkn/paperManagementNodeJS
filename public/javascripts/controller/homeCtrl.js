@@ -28,3 +28,9 @@ home.controller('',function($scope,$http){
             alert("error: "+status);
         });
 });
+//控制菜单点击样式
+home.controller('navbar',function($scope){
+    $("li[name='myli']").click(function(){
+        $(this).addClass("active").siblings('li').removeClass("active");
+    });
+});
