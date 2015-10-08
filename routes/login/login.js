@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var userDAO = require('../../DAO/userDAO');
 
-/* GET home page. */
+/* GET home page.   */
 router.get('/', function(req, res, next) {
     res.render('login/login', {title: 'Express'});
 });
