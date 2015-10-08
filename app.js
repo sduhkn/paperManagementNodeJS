@@ -11,7 +11,7 @@ var login = require('./routes/login/login');
 var home = require('./routes/home');
 var logout = require('./routes/login/logout');
 var testQuery = require('./routes/login/testQuery');
-var userDAO = require('./bin/connect');
+var userDAO = require('./DAO/userDAO');
 var app = express();
 
 // view engine setup

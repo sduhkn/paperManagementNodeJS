@@ -3,7 +3,7 @@
  */
 var express = require('express');
 var router = express.Router();
-var conn = require('../bin/connect');
+var conn = require('../DAO/userDAO');
 /* . */
 
 router.get('/',function(req, res, next){
