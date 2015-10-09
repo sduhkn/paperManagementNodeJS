@@ -12,7 +12,7 @@ router.post('/',function(req, res ,next){
     userDAO.checkLogin(req,res,function(err, result){
         if(result.length != 0) {
             if (result[0].password == req.body.password) {
-                res.cookie('userID',result[0].username,{ maxAge: 10*60*1000 });
+                res.cookie('userID',result[0].sid,{ maxAge: 10*60*1000 });
                 req.session.user = result;
                 res.redirect('home');
             } else {

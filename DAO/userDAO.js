@@ -29,12 +29,55 @@ module.exports = {
     checkLogin: function(req, res, callback){
         pool.getConnection(function(err,conn){
             var params = req.body;
-            var sql = 'select username,password from user where username = ?';
+            var sql = 'select sid,password from student_info where sid = ?';
             conn.query(sql,params.username,function(err, result) {
                 if(result)
                     callback(err, result);
             });
 
         });
-    }
+    },
+    comparePassword: function(req, res, callback){
+        pool.getConnection(function(err,conn){
+            var params = req.body;
+            var sql = 'select password from student_info where sid = ?';
+            conn.query(sql,params.username,function(err, result) {
+                if(result)
+                    callback(err, result);
+            });
+
+        });
+    },
+    changePassword: function(req, res, callback){
+        pool.getConnection(function(err,conn){
+            var params = req.body;
+            var sql = 'update password =? from student_info where sid = ?';
+            conn.query(sql,params.password,params.username,function(err, result) {
+                if(result)
+                    callback(err, result);
+            });
+
+        });
+    },
+    showPaperIndex: function(req, res, callback){
+        pool.getConnection(function(err,conn){
+            var params = req.body;
+            var sql = 'select password from student_info where sid = ?';
+            conn.query(sql,params.username,function(err, result) {
+                if(result)
+                    callback(err, result);
+            });
+
+        });
+    },
+    queryOwnPaper: function(req, res, callback){
+        pool.getConnection(function(err,conn){
+            var params = req.body;
+            var sql = 'select password from student_info where sid = ?';
+            conn.query(sql,params.username,function(err, result) {
+                if(result)
+                    callback(err, result);
+            });
+        });
+    },
 };
