@@ -26,6 +26,10 @@ home.controller('stu_showPaperInfo',function($scope,$http){
         }).error(function(data, status){
             alert("error: "+status);
         });
+
+    $scope.edit = function(paper){
+
+    }
 });
 //控制菜单点击样式
 home.controller('navbar',function($scope){
