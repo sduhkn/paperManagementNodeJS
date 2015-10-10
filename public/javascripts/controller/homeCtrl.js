@@ -4,12 +4,11 @@
 var home = angular.module("home", ['ui.router']);
 
 home.config(function ($stateProvider, $urlRouterProvider) {
-
     $urlRouterProvider.when("", "/page1");
     $stateProvider
         .state("page1", {
             url:"/page1",
-            templateUrl: "./views/stu/Page1.ejs"
+            templateUrl: "./views/stu/Page1.ejs",
         })
         .state("page2", {
             url:"/page2",
@@ -20,10 +19,10 @@ home.config(function ($stateProvider, $urlRouterProvider) {
             templateUrl: "./views/stu/Page3.ejs"
         });
 });
-home.controller('',function($scope,$http){
-    $http.get('/user',{ params:{userID: '123'} })
+home.controller('stu_showPaperInfo',function($scope,$http){
+    $http.get('/myPaperInfo')
         .success(function(data, status){
-            $scope.users = data.userData;
+            $scope.paperInfo = data.paperInfo;
         }).error(function(data, status){
             alert("error: "+status);
         });

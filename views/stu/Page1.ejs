@@ -1,6 +1,6 @@
 <!-- 我发表的论文右侧 -->
 <div>
-     <div ng-controller="">
+     <div ng-controller="stu_showPaperInfo">
          <div class="container">
              <!-- 搜索栏 -->
              <div class="row">
@@ -25,14 +25,15 @@
                          </ul>
                      </nav>
                  </div>
+
                  <div class="input-group col-xs-offset-8 col-xs-3" style="padding-top: 16px">
-                     <input type="text" class="form-control" placeholder="Search for...">
-                      <span class="input-group-btn">
+                     <input type="text" class="form-control" placeholder="输入搜索内容：" ng-model="searchText">
+<!--                      <span class="input-group-btn">
                         <button class="btn btn-default" type="button">Go!</button>
-                      </span>
+                      </span>-->
                  </div><!-- /input-group -->
              </div>
-             <!-- 显示信息栏 -->
+             <!-- show paper info -->
             <div class="row" id="paperHeaderStyle">
                 <div class="col-xs-1 col-xs-offset-1">
                     论文ID
@@ -44,27 +45,27 @@
                     发表日期
                 </div>
             </div>
-             <div class="row" id="paperStyle">
+             <div class="row" id="paperStyle" ng-repeat="paper in paperInfo | filter:searchText">
                  <div class="col-xs-1">
-                     <p>index</p>
+                     <p>{{ $index + 1 }}</p>
                  </div>
                 <div class="col-xs-1">
-                    <p>20112121</p>
+                    <p>{{ paper.paperid }}</p>
                 </div>
                 <div class="col-xs-4">
-                    这个是测试的论文名称1234123213213213123123
+                    {{ paper.title }}
                 </div>
                 <div class="col-xs-1">
-                    2011/11/3
+                    {{ paper.pubdate | date:'yyyy/MM/dd' }}
                 </div>
                  <div class="col-xs-1">
-                    <button type="button" class="btn-info btn">查看</button>
+                    <button type="button" class="btn-info btn btn-sm">查看</button>
                 </div>
                  <div class="col-xs-1">
-                     <button type="button" class="btn-primary btn">编辑</button>
+                     <button type="button" class="btn-primary btn btn-sm">编辑</button>
                 </div>
                  <div class="col-xs-1">
-                     <button type="button" class="btn-danger btn">删除</button>
+                     <button type="button" class="btn-danger btn btn-sm">删除</button>
                 </div>
             </div>
          </div>

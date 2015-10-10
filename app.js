@@ -45,10 +45,10 @@ app.use('/home',home);
 app.use('/logout',logout);
 app.use('/result',testQuery);
 
-app.get('/user',function(req, res){
-    userDAO.queryAll("select * from user",function(err, result){
-        console.log(req.query.userID);
-        res.send({userData: result });
+app.get('/myPaperInfo',function(req, res){
+    var sql = "select * from paper_info where fauthor = " + req.cookies["userID"];
+    userDAO.showPaperInfoQueryByID(sql,function(err, result){
+        res.send({paperInfo: result });
     });
 });
 

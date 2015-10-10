@@ -1,4 +1,9 @@
 <div>
+    这是我的id: <label id="userID"> </label>
+    <script>
+        var userID = $.cookie('userID');
+        document.getElementById('userID').innerText = userID;
+    </script>
      <div class="container">
          <div class="navbar navbar-default"  style="margin-top: 10px;width: 90%" >
              <div class="row" style="padding-top: 10px">

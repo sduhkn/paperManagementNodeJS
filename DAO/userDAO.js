@@ -37,6 +37,15 @@ module.exports = {
 
         });
     },
+    // show user herself paper info
+    showPaperInfoQueryByID: function(sql, callback){
+        pool.getConnection(function(err,conn){
+            conn.query(sql, function(err, result) {
+                if(result)
+                    callback(err, result);
+            });
+        });
+    },
     comparePassword: function(req, res, callback){
         pool.getConnection(function(err,conn){
             var params = req.body;
