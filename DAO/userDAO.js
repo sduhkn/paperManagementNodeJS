@@ -46,6 +46,16 @@ module.exports = {
             });
         });
     },
+    showStuOwnInfoQueryByID: function(sql, callback){
+        pool.getConnection(function(err,conn){
+            conn.query(sql, function(err, result) {
+                if(result){
+                    console.log(result[0]);
+                    callback(err, result);}
+
+            });
+        });
+    },
     comparePassword: function(req, res, callback){
         pool.getConnection(function(err,conn){
             var params = req.body;

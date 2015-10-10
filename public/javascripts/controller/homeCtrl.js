@@ -17,6 +17,10 @@ home.config(function ($stateProvider, $urlRouterProvider) {
         .state("page3", {
             url:"/page3",
             templateUrl: "./views/stu/Page3.ejs"
+        })
+        .state("page4", {
+            url:"/page4",
+            templateUrl: "./views/stu/Page4.ejs"
         });
 });
 home.controller('stu_showPaperInfo',function($scope,$http){
@@ -36,4 +40,16 @@ home.controller('navbar',function($scope){
     $("li[name='myli']").click(function(){
         $(this).addClass("active").siblings('li').removeClass("active");
     });
+});
+home.controller('stuOwnInfo',function($scope,$http){
+    $http.get('/stuOwnInfo')
+        .success(function(data, status){
+            console.log(data.paperInfo.sid);
+            $scope.sid=data.paperInfo.sid;
+            $scope.sex=data.paperInfo.sex;
+            $scope.sname=data.paperInfo.sname;
+        })
+        .error(function(data, status){
+            alert("error: "+status);
+        });
 });

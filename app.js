@@ -51,8 +51,14 @@ app.get('/myPaperInfo',function(req, res){
         res.send({paperInfo: result });
     });
 });
-
-
+//get student's own paper
+app.get('/stuOwnInfo',function(req, res){
+    var sql = "select sid,sname,sex from student_info where sid = " + req.cookies["userID"];
+    userDAO.showStuOwnInfoQueryByID(sql,function(err, result){
+        res.send({paperInfo: result[0] });
+    });
+});
+//get student's own information
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
