@@ -10,7 +10,7 @@ var session = require('express-session');
 var login = require('./routes/login/login');
 var home = require('./routes/home');
 var logout = require('./routes/login/logout');
-var testQuery = require('./routes/login/testQuery');
+var stuRoute = require('./routes/stu/stuRoute');
 var userDAO = require('./DAO/userDAO');
 var app = express();
 
@@ -43,14 +43,8 @@ app.get('/',function(req, res){
 app.use('/login', login);
 app.use('/home',home);
 app.use('/logout',logout);
-app.use('/result',testQuery);
-
-app.get('/myPaperInfo',function(req, res){
-    var sql = "select * from paper_info where fauthor = " + req.cookies["userID"];
-    userDAO.showPaperInfoQueryByID(sql,function(err, result){
-        res.send({paperInfo: result });
-    });
-});
+//ctrl stu route
+app.use('/stu',stuRoute);
 //get student's own paper
 app.get('/stuOwnInfo',function(req, res){
     var sql = "select sid,sname,sex from student_info where sid = " + req.cookies["userID"];

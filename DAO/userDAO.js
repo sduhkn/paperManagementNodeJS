@@ -50,7 +50,6 @@ module.exports = {
         pool.getConnection(function(err,conn){
             conn.query(sql, function(err, result) {
                 if(result){
-                    console.log(result[0]);
                     callback(err, result);}
 
             });
