@@ -1,7 +1,12 @@
 <div>
     <div ng-controller="stuOwnInfo">
-        <input type="text" ng-model='sid' />
-        <p>{{sname}}</p>
-        <p>{{sex}}</p>
+        <input type="text" ng-model='sname'/>
+        <!--<select>-->
+        <!--<option ng-repeat="v in stuSex">{{ v.sex }}</option>-->
+        <!--</select>-->
+        <select ng-model="stu.sex" ng-options="v.sex as v.sex for v in stuSex" ng-change="changeLocale()">
+            <!--<option value="">请选择你的性别</option>-->
+        </select>
+        <button ng-click="updateStuInfo()">提交</button>
     </div>
 </div>
