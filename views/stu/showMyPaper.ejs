@@ -1,39 +1,40 @@
 <!-- 我发表的论文右侧 -->
 <div ng-controller="stu_showPaperInfo">
-     <div>
-         <div class="container">
-             <!-- 搜索栏 -->
-             <div class="row">
-                 <div class="col-xs-offset-1 col-xs-3">
-                     <nav>
-                         <ul class="pagination">
-                             <li>
-                                 <a href="#" aria-label="Previous">
-                                     <span aria-hidden="true">&laquo;</span>
-                                 </a>
-                             </li>
-                             <li><a href="#">1</a></li>
-                             <li><a href="#">2</a></li>
-                             <li><a href="#">3</a></li>
-                             <li><a href="#">4</a></li>
-                             <li><a href="#">5</a></li>
-                             <li>
-                                 <a href="#" aria-label="Next">
-                                     <span aria-hidden="true">&raquo;</span>
-                                 </a>
-                             </li>
-                         </ul>
-                     </nav>
-                 </div>
+    <div>
+        <div class="container">
+            <!-- 搜索栏 -->
+            <div class="row">
+                <div class="col-xs-offset-1 col-xs-3">
+                    <nav>
+                        <ul class="pagination">
+                            <li>
+                                <a href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">5</a></li>
+                            <li>
+                                <a href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
 
-                 <div class="input-group col-xs-offset-8 col-xs-3" style="padding-top: 16px">
-                     <input type="text" class="form-control" placeholder="输入搜索内容：" ng-model="searchText">
-<!--                      <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">Go!</button>
-                      </span>-->
-                 </div><!-- /input-group -->
-             </div>
-             <!-- show paper info -->
+                <div class="input-group col-xs-offset-8 col-xs-3" style="padding-top: 16px">
+                    <input type="text" class="form-control" placeholder="输入搜索内容：" ng-model="searchText">
+                    <!--                      <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button">Go!</button>
+                                          </span>-->
+                </div>
+                <!-- /input-group -->
+            </div>
+            <!-- show paper info -->
             <div class="row" id="paperHeaderStyle">
                 <div class="col-xs-1 col-xs-offset-1">
                     论文ID
@@ -45,10 +46,10 @@
                     发表日期
                 </div>
             </div>
-             <div class="row" id="paperStyle" ng-repeat="paper in paperInfo | filter:searchText">
-                 <div class="col-xs-1">
-                     <p>{{ $index + 1 }}</p>
-                 </div>
+            <div class="row" id="paperStyle" ng-repeat="paper in paperInfo | filter:searchText">
+                <div class="col-xs-1">
+                    <p>{{ $index + 1 }}</p>
+                </div>
                 <div class="col-xs-1">
                     <p>{{ paper.paperid }}</p>
                 </div>
@@ -58,49 +59,52 @@
                 <div class="col-xs-1">
                     {{ paper.pubdate | date:'yyyy/MM/dd' }}
                 </div>
-                 <div class="col-xs-1">
+                <div class="col-xs-1">
                     <button type="button" class="btn-info btn btn-sm" data-toggle="modal"
-                            data-target="#edit{{$index}}">查看</button>
+                            data-target="#edit{{$index}}">查看
+                    </button>
                 </div>
-                 <div class="col-xs-1">
-                     <a class="btn-primary btn btn-sm" ui-sref="editPaper" ng-click="editPaper(paper)">编辑</a>
+                <div class="col-xs-1">
+                    <a class="btn-primary btn btn-sm" ui-sref="editPaper" ng-click="editPaper(paper)">编辑</a>
                 </div>
-                 <div class="col-xs-1">
-                     <button type="button" class="btn-danger btn btn-sm">删除</button>
+                <div class="col-xs-1">
+                    <button type="button" class="btn-danger btn btn-sm">删除</button>
                 </div>
 
-                 <!-- 模态框（Modal） -->
-                 <div class="modal fade" id="edit{{$index}}" tabindex="-1" role="dialog"
-                      aria-labelledby="myModalLabel" aria-hidden="true">
-                     <div class="modal-dialog">
-                         <div class="modal-content">
-                             <div class="modal-header">
-                                 <button type="button" class="close"
-                                         data-dismiss="modal" aria-hidden="true">
-                                     &times;
-                                 </button>
-                                 <h4 class="modal-title" id="myModalLabel">
-                                     {{ paper.title }}
-                                 </h4>
-                             </div>
-                             <div class="modal-body">
-                                 {{ paper.publish }}
-                             </div>
-                             <div class="modal-footer">
-                                 <button type="button" class="btn btn-default"
-                                         data-dismiss="modal">关闭
-                                 </button>
-                                 <button type="button" class="btn btn-primary">
-                                     提交更改
-                                 </button>
-                             </div>
-                         </div><!-- /.modal-content -->
-                     </div>
-                 </div><!-- /.modal -->
-
+                <!-- 模态框（Modal） -->
+                <div class="modal fade" id="edit{{$index}}" tabindex="-1" role="dialog"
+                     aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close"
+                                        data-dismiss="modal" aria-hidden="true">
+                                    &times;
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel">
+                                    {{ paper.title }}
+                                </h4>
+                            </div>
+                            <div class="modal-body">
+                                {{ paper.publish }}
+                                {{ paper.pubdate }}
+                                {{ paper.fauthor }}
+                                {{ paper.issue }}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default"
+                                        data-dismiss="modal">关闭
+                                </button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                </div>
+                <!-- /.modal -->
             </div>
-         </div><!-- /.container -->
-     </div>
+        </div>
+        <!-- /.container -->
+    </div>
 </div>
 
 

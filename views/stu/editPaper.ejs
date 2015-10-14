@@ -2,6 +2,12 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-1">
+                论文编号:
+            </div>
+            <div class="col-xs-2 ">
+                <input type="text" class="form-control" ng-model="paper.paperid">
+            </div>
+            <div class="col-xs-1">
                 论文题目:
             </div>
             <div class="col-xs-2">
@@ -11,12 +17,11 @@
                 发表日期:
             </div>
             <div class="col-xs-2 ">
-                <input type="date" class="form-control" ng-model="paper.pubdate | date:'yyyy/MM/dd' ">
+                <input type="date" class="form-control" ng-model="paper.pubdate">
             </div>
 
+
         </div>
-            <p>{{ paper.title }}</p>
-            <p>{{ paper.pubdate }}</p>
-            <p>{{ paper.publish }}</p>
+            <button ng-click="updatePaperInfo()">保存修改</button>
     </div>
 </div>
