@@ -3,21 +3,23 @@
  */
 var home = angular.module("home", ['ui.router']);
 
-home.factory('paperService', function () {
-    var paperInfo = {};
-
-    function setPaperInfo(paper) {
-        paperInfo = paper;
-    }
-
-    function getPaperInfo() {
-        return paperInfo;
-    }
-
+home.directive('formatDate', function(){
     return {
-        setPaperInfo: setPaperInfo,
-        getPaperInfo: getPaperInfo
-    }
+        require: 'ngModel',
+        link: function(scope, elem, attr, ngModelCtrl) {
+            ngModelCtrl.$formatters.push(function(modelValue){
+                if(modelValue) {
+                    return new Date(modelValue);
+                }
+            });
+
+            ngModelCtrl.$parsers.push(function(value){
+                if(value) {
+                    return $filter('date')(value, 'yyyy-MM-dd');
+                }
+            });
+        }
+    };
 });
 //ctrl the routes
 home.config(function ($stateProvider, $urlRouterProvider) {
@@ -50,21 +52,28 @@ home.config(function ($stateProvider, $urlRouterProvider) {
 });
 //show the paper info
 //showMyPaper.ejs
-home.controller('stu_showPaperInfo', ['$scope', '$http', 'paperService', function ($scope, $http, paperService) {
+home.controller('stu_showPaperInfo', ['$scope', '$http', '$window', function ($scope, $http, $window) {
     $http.get('/stu/myPaperInfo')
         .success(function (data, status) {
             $scope.paperInfo = data.paperInfo;
         }).error(function (data, status) {
             alert("error: " + status);
         });
+
     $scope.editPaper = function (paper) {
-        paperService.setPaperInfo(paper);
-    }
+        $window.sessionStorage.setItem('paper',JSON.stringify(paper));
+    };
 }]);
 //edit and update the paper info
 //editPaper.ejs
-home.controller('editPaperInfo', ['$scope', '$http', 'paperService', function ($scope, $http, paperService) {
-    $scope.paper = paperService.getPaperInfo();
+home.controller('editPaperInfo', function ($scope, $http, $window,$state) {
+    if($window.sessionStorage.getItem('paper')){
+        var editPaperInfo = JSON.parse($window.sessionStorage.getItem('paper'));
+        $scope.paper = editPaperInfo;
+        $scope.paper.pubdate = new Date(editPaperInfo.pubdate);
+    }else {
+        $state.go('showMyPaper');
+    }
     $scope.updatePaperInfo = function () {
         $http.post('/stu/updatePaperInfo', {
             publish: $scope.paper.publish, paperid: $scope.paperid
@@ -76,7 +85,7 @@ home.controller('editPaperInfo', ['$scope', '$http', 'paperService', function ($
                 alert("error: " + status);
             });
     }
-}]);
+});
 //ctrl css style of the right menu
 home.controller('navbar', function ($scope) {
     $("li[name='myli']").click(function () {
