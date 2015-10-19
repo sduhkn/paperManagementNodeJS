@@ -21,7 +21,7 @@ router.get('/stuOwnInfo', function (req, res) {
 router.post('/changePassword', function (req, res) {
     //console.log(req.body.oldPwd);
     userDAO.comparePassword(req, res, function (err, result) {
-        if (result[0].password != crypto.createHash('sha1').update(req.body.oldPwd).digest("base64")) {
+        if (result[0].password != crypto.createHash('sha1').update(req.body.pwd.old).digest("base64")) {
             res.send({msg: "原密码不正确"});
         }
         else {

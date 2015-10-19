@@ -76,7 +76,7 @@ home.controller('editPaperInfo', function ($scope, $http, $window,$state) {
     }
     $scope.updatePaperInfo = function () {
         $http.post('/stu/updatePaperInfo', {
-            publish: $scope.paper.publish, paperid: $scope.paperid
+            paper: $scope.paper
         })
             .success(function (data, status) {
                 alert(data.msg);
@@ -95,17 +95,15 @@ home.controller('navbar', function ($scope) {
 home.controller('stuOwnInfo', function ($scope, $http) {
     $http.get('/stu/stuOwnInfo')
         .success(function (data, status) {
-            $scope.sex = data.stuInfo.sex;
-            $scope.sname = data.stuInfo.sname;
             $scope.stuSex = [{sex: '男'}, {sex: '女'}];
-            $scope.stu = {sex: data.stuInfo.sex};
+            $scope.stu = {sex: data.stuInfo.sex,sname:data.stuInfo.sname};
         })
         .error(function (data, status) {
             alert("error: " + status);
         });
     $scope.updateStuInfo = function () {
         $http.post('/stu/updateStuInfo', {
-            sex: $scope.stu.sex, sname: $scope.sname
+            stu: $scope.stu,
         })
             .success(function (data, status) {
                 alert(data.msg);
@@ -117,19 +115,19 @@ home.controller('stuOwnInfo', function ($scope, $http) {
 });
 home.controller('changePassword', function ($scope, $http) {
     $scope.checkForm = function () {
-        if ($scope.newPwd1 != $scope.newPwd2) {
+        if ($scope.pwd.new1 != $scope.pwd.new2) {
             alert("新密码不一致");
         } else {
-            if ($scope.oldPwd == $scope.newPwd1) {
+            if ($scope.pwd.old == $scope.pwd.new1) {
                 alert("新旧密码不能相同");
             }
             else {
-                if ($scope.newPwd1.length < 6) {
+                if ($scope.pwd.new1.length < 6) {
                     alert("密码须不少于六位");
                 }
                 else {
                     $http.post('/stu/changePassword', {
-                        oldPwd: $scope.oldPwd, newPwd: $scope.newPwd1
+                        pwd: $scope.pwd
                     })
                         .success(function (data, status) {
                             alert(data.msg);

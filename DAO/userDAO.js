@@ -54,7 +54,7 @@ module.exports = {
     changePassword: function (req, res, callback) {
         pool.getConnection(function (err, conn) {
             var params = req.body;
-            var sha1_pwd = crypto.createHash('sha1').update(params.newPwd).digest("base64");
+            var sha1_pwd = crypto.createHash('sha1').update(params.pwd.new1).digest("base64");
             var sql = 'update student_info set password =? where sid = ?';
             conn.query(sql, [sha1_pwd, req.cookies["userID"]], function (err, result) {
                 callback(err);
@@ -65,8 +65,9 @@ module.exports = {
     updatePaperInfo: function (req, res, callback) {
         pool.getConnection(function (err, conn) {
             var params = req.body;
-            var sql = 'update paper_info set title =? where paperid = ?';
-            conn.query(sql, [params.title, params.paperid], function (err, result) {
+            var sql = 'update paper_info set title =?,pubdate=?,spage=?,tpage=?,fauthor=? where paperid = ?';
+            conn.query(sql, [params.paper.title,new Date(params.paper.pubdate),
+               params.paper.spage,params.paper.tpage,params.paper.fauthor, params.paper.paperid], function (err, result) {
                 callback(err);
             });
             conn.release();
@@ -76,7 +77,7 @@ module.exports = {
         pool.getConnection(function (err, conn) {
             var params = req.body;
             var sql = 'update student_info set sex =? ,sname=? where sid = ?';
-            conn.query(sql, [params.sex, params.sname,req.cookies['userID']], function (err, result) {
+            conn.query(sql, [params.stu.sex, params.stu.sname,req.cookies['userID']], function (err, result) {
                 callback(err);
             });
             conn.release();
