@@ -25,7 +25,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({
-    secret: "111",//"111"��������
+    secret: "111",//"111"代表加密
     resave: false,
     name: 'user_ID',
     saveUninitialized: true,
@@ -39,17 +39,28 @@ app.get('/',function(req, res){
     res.redirect('login');
 });
 
-//�û���½��ת
+//用户登陆跳转
 app.use('/login', login);
 app.use('/home',home);
 app.use('/logout',logout);
 //ctrl stu route
 app.use('/stu',stuRoute);
 //get student's own paper
-app.get('/stuOwnInfo',function(req, res){
-    var sql = "select sid,sname,sex from student_info where sid = " + req.cookies["userID"];
-    userDAO.showStuOwnInfoQueryByID(sql,function(err, result){
-        res.send({paperInfo: result[0] });
+app.get('/stuOwnInfo', function (req, res) {
+    var sql = "select sid,sname,sex,code_info.content,school,major,enrolldate," +
+        "tid,gschool from student_info,code_info where code_info.code='stype' " +
+        "and sid = " + req.cookies["userID"];
+    userDAO.showStuOwnInfoQueryByID(sql, function (err, result) {
+        res.send({studentInfo: result[0]});
+    });
+});
+app.post('/updateStuInfo', function (req, res) {
+    userDAO.updateStuInfo(req, res, function (err) {
+        if (err) {
+            res.send("对不起，修改错误");
+        } else {
+            res.send("恭喜，修改成功！");
+        }
     });
 });
 //get student's own information

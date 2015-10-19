@@ -71,15 +71,41 @@ home.controller('navbar',function($scope){
         $(this).addClass("active").siblings('li').removeClass("active");
     });
 });
-home.controller('stuOwnInfo',function($scope,$http){
+home.controller('stuOwnInfo', function ($scope, $http) {
+
+    $http.get('/stu/myPaperInfo')
+        .success(function (data, status) {
+            $scope.paperInfo = data.paperInfo;
+        }).error(function (data, status) {
+            alert("error: " + status);
+        });
+
+    $scope.updateStudent = function () {
+        $http.post("/updateStuInfo", {sid: $scope.sid, sex: $scope.sex,
+            sname: $scope.sname,school: $scope.school,major: $scope.major,
+            tid: $scope.tid,gschool: $scope.gschool})
+            .success(function (data, status) {
+                alert(data);
+            })
+            .error(function (data, status) {
+                alert("error: " + status);
+            });
+    }
     $http.get('/stuOwnInfo')
-        .success(function(data, status){
-            console.log(data.paperInfo.sid);
-            $scope.sid=data.paperInfo.sid;
-            $scope.sex=data.paperInfo.sex;
-            $scope.sname=data.paperInfo.sname;
+        .success(function (data, status) {
+            console.log(data.studentInfo.sid);
+            $scope.sid = data.studentInfo.sid;
+            $scope.sex = data.studentInfo.sex;
+            $scope.sname = data.studentInfo.sname;
+            $scope.content = data.studentInfo.content;
+            $scope.school = data.studentInfo.school;
+            $scope.major = data.studentInfo.major;
+            $scope.enrolldate = data.studentInfo.enrolldate;
+            $scope.tid = data.studentInfo.tid;
+            $scope.gschool = data.studentInfo.gschool;
+
         })
-        .error(function(data, status){
-            alert("error: "+status);
+        .error(function (data, status) {
+            alert("error: " + status);
         });
 });

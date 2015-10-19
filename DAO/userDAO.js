@@ -98,4 +98,15 @@ module.exports = {
             });
         });
     },
+    updateStuInfo: function (req, res, callback) {
+        pool.getConnection(function (err, conn) {
+            var params = req.body;
+            var sql = 'update student_info set sex=?,school=?,tid=?,gschool=? where sid = ?';
+            conn.query(sql, [params.sex, params.school,
+                params.tid, params.gschool, params.sid], function (err) {
+                callback(err);
+            });
+        });
+    },
+
 };
