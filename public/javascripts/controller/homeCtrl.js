@@ -93,51 +93,26 @@ home.controller('navbar', function ($scope) {
     });
 });
 home.controller('stuOwnInfo', function ($scope, $http) {
-
-    //$scope.sexList = [
-    //    {
-    //        name: '男',
-    //        name: '女',
-    //    },
-    //];
-    $http.get('/stu/myPaperInfo')
+    $http.get('/stu/stuOwnInfo')
         .success(function (data, status) {
-            $scope.paperInfo = data.paperInfo;
-        }).error(function (data, status) {
+            $scope.stuSex = [{sex: '男'}, {sex: '女'}];
+            $scope.stu = {sex: data.stuInfo.sex,sname:data.stuInfo.sname};
+        })
+        .error(function (data, status) {
             alert("error: " + status);
         });
-    // $scope.sex = $scope.sexList[sex].name;
-
-    $scope.updateStudent = function () {
-        $http.post("/updateStuInfo", {sid: $scope.sid, sex: $scope.sex,
-            sname: $scope.sname,school: $scope.school,major: $scope.major,
-            tid: $scope.tid,gschool: $scope.gschool})
+    $scope.updateStuInfo = function () {
+        $http.post('/stu/updateStuInfo', {
+            stu: $scope.stu,
+        })
             .success(function (data, status) {
-                alert(data);
+                alert(data.msg);
             })
             .error(function (data, status) {
                 alert("error: " + status);
             });
     }
-    $http.get('/stuOwnInfo')
-        .success(function (data, status) {
-            console.log(data.studentInfo.sid);
-            $scope.sid = data.studentInfo.sid;
-            $scope.sex = data.studentInfo.sex;
-            $scope.sname = data.studentInfo.sname;
-            $scope.content = data.studentInfo.content;
-            $scope.school = data.studentInfo.school;
-            $scope.major = data.studentInfo.major;
-            $scope.enrolldate = data.studentInfo.enrolldate;
-            $scope.tid = data.studentInfo.tid;
-            $scope.gschool = data.studentInfo.gschool;
-
-        })
-        .error(function (data, status) {
-            alert("error: " + status);
-        });
 });
-
 home.controller('changePassword', function ($scope, $http) {
     $scope.checkForm = function () {
         if ($scope.pwd.new1 != $scope.pwd.new2) {

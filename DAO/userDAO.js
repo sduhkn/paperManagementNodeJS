@@ -76,9 +76,8 @@ module.exports = {
     updateStuInfo: function (req, res, callback) {
         pool.getConnection(function (err, conn) {
             var params = req.body;
-            var sql = 'update student_info set sex=?,school=?,tid=?,gschool=? where sid = ?';
-            conn.query(sql, [params.sex, params.school,
-                params.tid, params.gschool, params.sid], function (err) {
+            var sql = 'update student_info set sex =? ,sname=? where sid = ?';
+            conn.query(sql, [params.stu.sex, params.stu.sname,req.cookies['userID']], function (err, result) {
                 callback(err);
             });
             conn.release();

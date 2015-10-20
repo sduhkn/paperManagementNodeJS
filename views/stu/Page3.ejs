@@ -1,33 +1,12 @@
-<ng-form ng-controller="stuOwnInfo" xmlns="http://www.w3.org/1999/html">
-    <div>
-        学号：{{sid}}<br>
-        姓名：<input type="text" ng-model="sname" ng-disabled="!disable"><br>
-        <!--性别：<input type="text" ng-model="sex" ng-disabled="!disable"><br>-->
-        <div>
-            性别：
-            <label>
-                <input type="radio" name="sexSelect" value="男" ng-model="sex" ng-disabled="!disable">
-                男
-                <input type="radio" name="sexSelect" value="女" ng-model="sex" ng-disabled="!disable">
-                女
-            </label>
-        </div>
-        类型：<input type="text" ng-model="content" ng-disabled="!disable"><br>
-        学院：<input type="text" ng-model="school" ng-disabled="!disable"><br>
-        专业：<input type="text" ng-model="major" ng-disabled="!disable"><br>
-        入学年份：<input type="text" ng-model="enrolldate | date:'yyyy-MM-dd'" ng-disabled="!disable"><br>
-        导师编号：<input type="text" ng-model="tid" ng-disabled="!disable"><br>
-        毕业学校：<input type="text" ng-model="gschool" ng-disabled="!disable"><br><br>
-        修改： <input type="checkbox" ng-model="disable" ng-checked="fasle"/>
+<div>
+    <div ng-controller="stuOwnInfo">
+        <input type="text" ng-model='stu.sname'/>
+        <!--<select>-->
+        <!--<option ng-repeat="v in stuSex">{{ v.sex }}</option>-->
+        <!--</select>-->
+        <select ng-model="stu.sex" ng-options="v.sex as v.sex for v in stuSex">
+            <!--<option value="">请选择你的性别</option>-->
+        </select>
+        <button ng-click="updateStuInfo()">提交</button>
     </div>
-
-    <!--<div>-->
-    <!--下拉框：-->
-    <!--<select>-->
-    <!--<option ng-repeat="v in sexList">{{ v.name }}</option>-->
-    <!--</select>-->
-    <!--</div>-->
-    <div>
-        <button ng-click="updateStudent()">提交</button>
-    </div>
-</ng-form>
+</div>
