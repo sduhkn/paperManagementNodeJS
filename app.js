@@ -47,6 +47,24 @@ app.use('/stu', stuRoute);
 //get student's own paper
 
 //get student's own information
+app.get('/stuOwnInfo', function (req, res) {
+    var sql = "select sid,sname,sex,code_info.content,school,major,enrolldate," +
+        "tid,gschool from student_info,code_info where code_info.code='stype' " +
+        "and sid = " + req.cookies["userID"];
+    userDAO.showStuOwnInfoQueryByID(sql, function (err, result) {
+        res.send({studentInfo: result[0]});
+    });
+});
+app.post('/updateStuInfo', function (req, res) {
+    userDAO.updateStuInfo(req, res, function (err) {
+        if (err) {
+            res.send("对不起，修改错误");
+        } else {
+            res.send("恭喜，修改成功！");
+        }
+    });
+})
+;
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
