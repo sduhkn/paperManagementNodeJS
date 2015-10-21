@@ -13,9 +13,8 @@ router.get('/myPaperInfo', function (req, res) {
     });
 });
 router.get('/stuOwnInfo', function (req, res) {
-    var sql = "select sid,sname,sex from student_info where sid = " + req.cookies["userID"];
-    userDAO.showStuOwnInfoQueryByID(sql, function (err, result) {
-        res.send({stuInfo: result[0]});
+    userDAO.showStuOwnInfoQueryByID(res,req, function (err, result,result1) {
+        res.send({stu: result[0],stype:result1});
     });
 });
 router.post('/changePassword', function (req, res) {
@@ -46,8 +45,27 @@ router.post('/updatePaperInfo', function (req, res) {
             res.send({msg: "修改成功"});
     })
 });
+router.post('/newPaperInfo', function (req, res) {
+    //console.log(req.body.oldPwd);
+    userDAO.newPaperInfo(req, res, function (err) {
+        if (err) {
+            res.send({msg: "未知错误"});
+        }
+        else
+            res.send({msg: "新建论文成功"});
+    })
+});
 router.post('/updateStuInfo', function (req, res) {
     userDAO.updateStuInfo(req, res, function (err) {
+        if (err) {
+            res.send({msg: "未知错误"});
+        }
+        else
+            res.send({msg: "修改成功"});
+    })
+});
+router.post('/deletePaper', function (req, res) {
+    userDAO.deletePaper(req, res, function (err) {
         if (err) {
             res.send({msg: "未知错误"});
         }

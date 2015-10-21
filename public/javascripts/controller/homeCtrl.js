@@ -3,18 +3,18 @@
  */
 var home = angular.module("home", ['ui.router']);
 
-home.directive('formatDate', function(){
+home.directive('formatDate', function () {
     return {
         require: 'ngModel',
-        link: function(scope, elem, attr, ngModelCtrl) {
-            ngModelCtrl.$formatters.push(function(modelValue){
-                if(modelValue) {
+        link: function (scope, elem, attr, ngModelCtrl) {
+            ngModelCtrl.$formatters.push(function (modelValue) {
+                if (modelValue) {
                     return new Date(modelValue);
                 }
             });
 
-            ngModelCtrl.$parsers.push(function(value){
-                if(value) {
+            ngModelCtrl.$parsers.push(function (value) {
+                if (value) {
                     return $filter('date')(value, 'yyyy-MM-dd');
                 }
             });
@@ -36,6 +36,10 @@ home.config(function ($stateProvider, $urlRouterProvider) {
         .state("editPaper", {
             url: '/editPaper',
             templateUrl: './views/stu/editPaper.ejs',
+        })
+        .state("newPaper", {
+            url: '/newPaper',
+            templateUrl: './views/stu/newPaper.ejs',
         })
         .state("page2", {
             url: "/page2",
@@ -59,19 +63,32 @@ home.controller('stu_showPaperInfo', ['$scope', '$http', '$window', function ($s
         }).error(function (data, status) {
             alert("error: " + status);
         });
-
     $scope.editPaper = function (paper) {
-        $window.sessionStorage.setItem('paper',JSON.stringify(paper));
+        $window.sessionStorage.setItem('paper', JSON.stringify(paper));
     };
+    $scope.deleteConfirm = function (index,paper) {
+        if (confirm("确定要删除这篇论文吗？")) {
+            $http.post('/stu/deletePaper', {
+                paper: paper
+            })
+                .success(function (data, status) {
+                    alert(data.msg);
+                    $scope.paperInfo.splice(index, 1);
+                })
+                .error(function (data, status) {
+                    alert(data.msg);
+                });
+        }
+    }
 }]);
 //edit and update the paper info
 //editPaper.ejs
-home.controller('editPaperInfo', function ($scope, $http, $window,$state) {
-    if($window.sessionStorage.getItem('paper')){
+home.controller('editPaperInfo', function ($scope, $http, $window, $state) {
+    if ($window.sessionStorage.getItem('paper')) {
         var editPaperInfo = JSON.parse($window.sessionStorage.getItem('paper'));
         $scope.paper = editPaperInfo;
         $scope.paper.pubdate = new Date(editPaperInfo.pubdate);
-    }else {
+    } else {
         $state.go('showMyPaper');
     }
     $scope.updatePaperInfo = function () {
@@ -86,6 +103,19 @@ home.controller('editPaperInfo', function ($scope, $http, $window,$state) {
             });
     }
 });
+home.controller('newPaperInfo', function ($scope, $http, $window, $state) {
+    $scope.newPaperInfo = function () {
+        $http.post('/stu/newPaperInfo', {
+            paper: $scope.paper
+        })
+            .success(function (data, status) {
+                alert(data.msg);
+            })
+            .error(function (data, status) {
+                alert(data.msg);
+            });
+    }
+});
 //ctrl css style of the right menu
 home.controller('navbar', function ($scope) {
     $("li[name='myli']").click(function () {
@@ -95,8 +125,9 @@ home.controller('navbar', function ($scope) {
 home.controller('stuOwnInfo', function ($scope, $http) {
     $http.get('/stu/stuOwnInfo')
         .success(function (data, status) {
-            $scope.stuSex = [{sex: '男'}, {sex: '女'}];
-            $scope.stu = {sex: data.stuInfo.sex,sname:data.stuInfo.sname};
+            $scope.stu = data.stu;
+            $scope.stu.enrolldate = new Date(data.stu.enrolldate);
+            $scope.stype=data.stype;
         })
         .error(function (data, status) {
             alert("error: " + status);

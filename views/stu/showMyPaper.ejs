@@ -3,6 +3,11 @@
     <div>
         <div class="container">
             <!-- 搜索栏 -->
+            <div class="row" id="paperHeaderStyle">
+                <div class="col-xs-1">
+                    <a class="btn-primary btn btn-sm" ui-sref="newPaper">新建论文</a>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-xs-offset-1 col-xs-3">
                     <nav>
@@ -60,15 +65,14 @@
                     {{ paper.pubdate | date:'yyyy/MM/dd' }}
                 </div>
                 <div class="col-xs-1">
-                    <button type="button" class="btn-info btn btn-sm" data-toggle="modal"
-                            data-target="#edit{{$index}}">查看
+                    <button type="button" class="btn-info btn btn-sm" data-toggle="modal" data-target="#edit{{$index}}">查看
                     </button>
                 </div>
                 <div class="col-xs-1">
                     <a class="btn-primary btn btn-sm" ui-sref="editPaper" ng-click="editPaper(paper)">编辑</a>
                 </div>
                 <div class="col-xs-1">
-                    <button type="button" class="btn-danger btn btn-sm">删除</button>
+                    <button type="button" class="btn-danger btn btn-sm" ng-click="deleteConfirm($index,paper)">删除</button>
                 </div>
 
                 <!-- 模态框（Modal） -->

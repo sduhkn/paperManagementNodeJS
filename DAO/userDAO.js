@@ -30,13 +30,19 @@ module.exports = {
             conn.release();
         });
     },
-    showStuOwnInfoQueryByID: function (sql, callback) {
+    showStuOwnInfoQueryByID: function (res, req, callback) {
         pool.getConnection(function (err, conn) {
-            conn.query(sql, function (err, result) {
+            var sql1 = "select sid,sname,sex,content,school,major,enrolldate,tid,gschool from student_info,code_info " +
+                "where sid = ? and code_info.code='stype' and student_info.stype = code_info.codeid";
+            conn.query(sql1, [req.cookies["userID"]],function (err, result) {
                 if (result) {
-                    callback(err, result);
+                    var sql2="select content,codeid from code_info where code_info.code='stype'"
+                    conn.query(sql2,function (err, result1) {
+                        if (result) {
+                            callback(err, result,result1);
+                        }
+                    });
                 }
-
             });
             conn.release();
         });
@@ -66,8 +72,8 @@ module.exports = {
         pool.getConnection(function (err, conn) {
             var params = req.body;
             var sql = 'update paper_info set title =?,pubdate=?,spage=?,tpage=?,fauthor=? where paperid = ?';
-            conn.query(sql, [params.paper.title,new Date(params.paper.pubdate),
-               params.paper.spage,params.paper.tpage,params.paper.fauthor, params.paper.paperid], function (err, result) {
+            conn.query(sql, [params.paper.title, new Date(params.paper.pubdate),
+                params.paper.spage, params.paper.tpage, params.paper.fauthor, params.paper.paperid], function (err, result) {
                 callback(err);
             });
             conn.release();
@@ -75,9 +81,33 @@ module.exports = {
     },
     updateStuInfo: function (req, res, callback) {
         pool.getConnection(function (err, conn) {
+            var params = req.body.stu;
+            var enrolldate =new Date(params.enrolldate);
+            var sql = 'update student_info set sid=?,sname=?,sex=?,stype=?,school=?,major=?,enrolldate=?,tid=?,gschool=? where sid = ?';
+            conn.query(sql, [params.sid, params.sname, params.sex,params.stype, params.school,params.major,
+                enrolldate,params.tid,params.gschool,req.cookies['userID']], function (err, result) {
+                callback(err);
+            });
+            conn.release();
+        });
+    },
+    deletePaper: function (req, res, callback) {
+        pool.getConnection(function (err, conn) {
             var params = req.body;
-            var sql = 'update student_info set sex =? ,sname=? where sid = ?';
-            conn.query(sql, [params.stu.sex, params.stu.sname,req.cookies['userID']], function (err, result) {
+            console.log(params.paper.paperid);
+            var sql = 'delete from paper_info where paperid = ?';
+            conn.query(sql, [params.paper.paperid], function (err, result) {
+                callback(err);
+            });
+            conn.release();
+        });
+    },
+    newPaperInfo: function (req, res, callback) {
+        pool.getConnection(function (err, conn) {
+            var params = req.body;
+            var sql = 'insert into paper_info (title,pubdate,spage,tpage,fauthor,paperid) values(?,?,?,?,?,?)';
+            conn.query(sql, [params.paper.title, new Date(params.paper.pubdate),
+                params.paper.spage, params.paper.tpage, params.paper.fauthor, params.paper.paperid], function (err, result) {
                 callback(err);
             });
             conn.release();
